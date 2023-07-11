@@ -14,19 +14,24 @@ public class Menu {
 
     public void creatingCharacter (Character player) {
         Scanner myObj = new Scanner(System.in);
-        while (!firstSelection.equals("continue") && !firstSelection.equals("modify")){
-            System.out.println("Would you like to continue or modify?");
+        while (!firstSelection.equals("continue") && !firstSelection.equals("modify") && !firstSelection.equals("exit")){
+            System.out.println("Would you like to continue, modify or exit?");
             this.firstSelection = myObj.nextLine();
         }
         if (firstSelection.equals("modify")){
             startTheGame();
-        } else {
+        } else if (firstSelection.equals("continue")){
             showPlayer(player);
             System.out.println(" ");
             System.out.println("Welcome to Donjons & Dragons !");
+        } else {
+            exitGame();
         }
     }
 
+    public void exitGame () {
+        return;
+    }
     public void showPlayer(Character player){
         System.out.println("Player name: "+player.getName());
         System.out.println("Type: "+player.getType());
