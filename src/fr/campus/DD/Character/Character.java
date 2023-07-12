@@ -8,10 +8,10 @@ import fr.campus.DD.Equipment.OffensiveEquipment;
 import java.util.Scanner;
 
 public class Character {
-    String name;
-    String type = "";
-    int pointLife;
-    int forceAttack;
+    private String name;
+    private String type = "";
+    private int pointLife;
+    private int forceAttack;
     OffensiveEquipment offensiveEquipment;
     DeffensiveEquipment deffensiveEquipment;
 
@@ -24,8 +24,7 @@ public class Character {
             this.type = console1.nextLine();
         }
 
-        selectForceAttack();
-        selectPointLife();
+        selectLevelGame();
 
         if (type.equals("warrior")){
             this.offensiveEquipment = new OffensiveEquipment("weapon",1,"sword");
@@ -37,42 +36,43 @@ public class Character {
         }
     }
 
-    public void selectForceAttack(){
+    public void selectLevelGame(){
         Scanner console2 = new Scanner(System.in);
-        int attackValue = 0;
-        if (this.type.equals("warrior")) {
-            while (attackValue < 5 || attackValue > 10) {
-                System.out.println("Enter attack value (between 5 and 10):");
-                attackValue = console2.nextInt();
+        String levelGame = "";
+        while (!levelGame.equals("easy") && !levelGame.equals("medium") && !levelGame.equals("hard")) {
+            System.out.println("choose the level of game (easy, medium or hard):");
+            levelGame = console2.nextLine();
+        }
+        if (levelGame.equals("easy")) {
+            if(type.equals("warrior")){
+                this.forceAttack = 10;
+                this.pointLife = 10;
+            }
+            if(type.equals("wizard")){
+                this.forceAttack =15;
+                this.pointLife = 6;
+            }
+        } else if (levelGame.equals("medium")) {
+            if(type.equals("warrior")){
+                this.forceAttack = 7;
+                this.pointLife = 7;
+            }
+            if(type.equals("wizard")){
+                this.forceAttack = 11;
+                this.pointLife = 5;
+            }
+        } else {
+            if(type.equals("warrior")){
+                this.forceAttack = 5;
+                this.pointLife = 5;
+            }
+            if(type.equals("wizard")){
+                this.forceAttack = 8;
+                this.pointLife = 3;
             }
         }
-        if (this.type.equals("wizard")) {
-            while (attackValue < 7 || attackValue > 15) {
-                System.out.println("Enter attack value (between 8 and 15):");
-                attackValue = console2.nextInt();
-            }
-        }
-
-        this.forceAttack = attackValue;
     }
 
-    public void selectPointLife(){
-        Scanner console3 = new Scanner(System.in);
-        int lifeValue = 0;
-        if (type.equals("warrior")) {
-            while (lifeValue < 5 || lifeValue > 10) {
-                System.out.println("Enter life value (between 5 and 10):");
-                lifeValue = console3.nextInt();
-            }
-        }
-        if (type.equals("wizard")){
-            while (lifeValue < 3 || lifeValue > 6) {
-                System.out.println("Enter life value (between 3 and 6):");
-                lifeValue = console3.nextInt();
-            }
-        }
-        this.pointLife = lifeValue;
-    }
     public Character() {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter a name for your character:");
@@ -136,13 +136,14 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", pointLife=" + pointLife +
-                ", forceAttack=" + forceAttack +
-                ", offensiveEquipment=" + offensiveEquipment +
-                ", deffensiveEquipment=" + deffensiveEquipment +
-                '}';
+        return  "Player name: " + name + '\n' +
+                "Type: " + type + '\n' +
+                "Life: " + pointLife + " points \n" +
+                "Force: " + forceAttack + " points \n" +
+                "Offensive equipment: \n"
+                + offensiveEquipment + '\n' +
+                "Deffensive equipment: \n"
+                + deffensiveEquipment
+                ;
     }
 }

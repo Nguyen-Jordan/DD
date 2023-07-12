@@ -3,9 +3,9 @@ package fr.campus.DD.Equipment;
 import fr.campus.DD.Character.Character;
 
 public class OffensiveEquipment {
-    String type;
-    int attackLevel;
-    String name;
+    private String type;
+    private int attackLevel;
+    private String name;
 
     public OffensiveEquipment() {
 
@@ -43,10 +43,9 @@ public class OffensiveEquipment {
 
     @Override
     public String toString() {
-        return "OffensiveEquipment{" +
-                "type='" + type + '\'' +
-                ", attackLevel=" + attackLevel +
-                ", name='" + name + '\'' +
-                '}';
+        return  "    Type: " + type + '\n' +
+                "    Name: " + name + '\n' +
+                "    Offensive points: " + attackLevel
+                ;
     }
 }
