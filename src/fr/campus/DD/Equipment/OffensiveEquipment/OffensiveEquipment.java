@@ -1,9 +1,8 @@
-package fr.campus.DD.Equipment;
+package fr.campus.DD.Equipment.OffensiveEquipment;
 
 import fr.campus.DD.Character.Character;
 
-public class OffensiveEquipment {
-    private String type;
+public abstract class OffensiveEquipment {
     private int attackLevel;
     private String name;
 
@@ -11,18 +10,9 @@ public class OffensiveEquipment {
 
     }
 
-    public OffensiveEquipment(String newType, int newAttackLevel, String newName) {
-        this.type = newType;
+    public OffensiveEquipment(int newAttackLevel, String newName) {
         this.attackLevel = newAttackLevel;
         this.name = newName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String newType) {
-        this.type = newType;
     }
 
     public int getAttackLevel(){
@@ -43,7 +33,7 @@ public class OffensiveEquipment {
 
     @Override
     public String toString() {
-        return  "    Type: " + type + '\n' +
+        return  "    Type: " + this.getClass().getSimpleName() + '\n' +
                 "    Name: " + name + '\n' +
                 "    Offensive points: " + attackLevel
                 ;

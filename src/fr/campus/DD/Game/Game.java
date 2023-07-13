@@ -1,8 +1,10 @@
 package fr.campus.DD.Game;
 
 import fr.campus.DD.Character.Character;
-import fr.campus.DD.Equipment.DeffensiveEquipment;
-import fr.campus.DD.Equipment.OffensiveEquipment;
+import fr.campus.DD.Character.Warrior;
+import fr.campus.DD.Character.Wizard;
+import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
+import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
 import fr.campus.DD.Menu.Menu;
 
 import java.util.Random;
@@ -92,52 +94,10 @@ public class Game {
     }
 
     public Character addCharacter (String name, String type) {
-        Character player = new Character();
-        player.setName(name);
-        player.setType(type);
-
-        selectLevelGame(player);
-
         if (type.equals("warrior")){
-            player.setOffensiveEquipment(new OffensiveEquipment("weapon", 1, "sword"));
-            player.setDeffensiveEquipment(new DeffensiveEquipment("shield", 1, "wooden shield"));
-        }
-        if (type.equals("wizard")) {
-            player.setOffensiveEquipment(new OffensiveEquipment("fate", 5, "magic root"));
-            player.setDeffensiveEquipment(new DeffensiveEquipment("potion", 2, "standard potion"));
-        }
-        return player;
-    }
-
-    public void selectLevelGame(Character player){
-        String levelGame = menu.getDifficulty();
-        if (levelGame.equals("easy")) {
-            if(player.getType().equals("warrior")){
-                player.setForceAttack(10);
-                player.setPointLife(10);
-            }
-            if(player.getType().equals("wizard")){
-                player.setForceAttack(15);
-                player.setPointLife(6);
-            }
-        } else if (levelGame.equals("medium")) {
-            if(player.getType().equals("warrior")){
-                player.setForceAttack(7);
-                player.setPointLife(7);
-            }
-            if(player.getType().equals("wizard")){
-                player.setForceAttack(11);
-                player.setPointLife(5);
-            }
+            return new Warrior(this.menu,name);
         } else {
-            if(player.getType().equals("warrior")){
-                player.setForceAttack(5);
-                player.setPointLife(5);
-            }
-            if(player.getType().equals("wizard")){
-                player.setForceAttack(8);
-                player.setPointLife(3);
-            }
+            return new Wizard(this.menu,name);
         }
     }
 

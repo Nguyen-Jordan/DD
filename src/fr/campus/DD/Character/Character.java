@@ -1,15 +1,10 @@
 package fr.campus.DD.Character;
 
-import java.util.Scanner;
+import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
+import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
 
-import fr.campus.DD.Equipment.DeffensiveEquipment;
-import fr.campus.DD.Equipment.OffensiveEquipment;
-
-import java.util.Scanner;
-
-public class Character {
+public abstract class Character {
     private String name;
-    private String type = "";
     private int pointLife;
     private int forceAttack;
     OffensiveEquipment offensiveEquipment;
@@ -33,14 +28,6 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getPointLife() {
@@ -77,14 +64,16 @@ public class Character {
 
     @Override
     public String toString() {
-        return  "Player name: " + name + '\n' +
-                "Type: " + type + '\n' +
-                "Life: " + pointLife + " points \n" +
-                "Force: " + forceAttack + " points \n" +
-                "Offensive equipment: \n"
-                + offensiveEquipment + '\n' +
-                "Deffensive equipment: \n"
-                + deffensiveEquipment
-                ;
+
+            return "Player name: " + name + '\n' +
+                    "Type: " + this.getClass().getSimpleName() + "\n"+
+                    "Life: " + pointLife + " points \n" +
+                    "Force: " + forceAttack + " points \n" +
+                    "Offensive equipment: \n"
+                    + offensiveEquipment + '\n' +
+                    "Deffensive equipment: \n"
+                    + deffensiveEquipment
+                    ;
+
     }
 }
