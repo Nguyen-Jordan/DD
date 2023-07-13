@@ -15,69 +15,10 @@ public class Character {
     OffensiveEquipment offensiveEquipment;
     DeffensiveEquipment deffensiveEquipment;
 
-    public void selectType(){
-
-        Scanner console1 = new Scanner(System.in);
-
-        while (!type.equals("warrior") && !type.equals("wizard")) {
-            System.out.println("warrior or wizard? Enter your type:");
-            this.type = console1.nextLine();
-        }
-
-        selectLevelGame();
-
-        if (type.equals("warrior")){
-            this.offensiveEquipment = new OffensiveEquipment("weapon",1,"sword");
-            this.deffensiveEquipment = new DeffensiveEquipment("shield", 1, "wooden shield");
-        }
-        if (type.equals("wizard")) {
-            this.offensiveEquipment = new OffensiveEquipment("fate", 5,"magic root");
-            this.deffensiveEquipment = new DeffensiveEquipment("potion", 2, "standard potion");
-        }
-    }
-
-    public void selectLevelGame(){
-        Scanner console2 = new Scanner(System.in);
-        String levelGame = "";
-        while (!levelGame.equals("easy") && !levelGame.equals("medium") && !levelGame.equals("hard")) {
-            System.out.println("choose the level of game (easy, medium or hard):");
-            levelGame = console2.nextLine();
-        }
-        if (levelGame.equals("easy")) {
-            if(type.equals("warrior")){
-                this.forceAttack = 10;
-                this.pointLife = 10;
-            }
-            if(type.equals("wizard")){
-                this.forceAttack =15;
-                this.pointLife = 6;
-            }
-        } else if (levelGame.equals("medium")) {
-            if(type.equals("warrior")){
-                this.forceAttack = 7;
-                this.pointLife = 7;
-            }
-            if(type.equals("wizard")){
-                this.forceAttack = 11;
-                this.pointLife = 5;
-            }
-        } else {
-            if(type.equals("warrior")){
-                this.forceAttack = 5;
-                this.pointLife = 5;
-            }
-            if(type.equals("wizard")){
-                this.forceAttack = 8;
-                this.pointLife = 3;
-            }
-        }
-    }
-
     public Character() {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter a name for your character:");
-        this.name = myObj.nextLine();
+
     }
+
 
     public Character(String name) {
 
