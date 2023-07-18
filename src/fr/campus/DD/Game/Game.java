@@ -6,6 +6,7 @@ import fr.campus.DD.Character.Wizard;
 import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
 import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
 import fr.campus.DD.Menu.Menu;
+import fr.campus.DD.Utils.Image;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -47,19 +48,23 @@ public class Game {
                 positionP2 = movePosition(player2, positionP2);
             }
         }
+
         isWin();
     }
 
     public int movePosition (Character player, int position){
         int dice;
+        System.out.println(Image.get("Dice"));
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Roll the dice ! \n");
         String userName = myObj.nextLine();
         dice = rollDice();
+        printDice(dice);
         position += dice;
         if (position < 64) {
             System.out.println(player.getName() + " on box " + position + "/ " + board.length );
-        } else {
+        }
+        if (position >= 64) {
             System.out.println(player.getName() + " on box " + 64 + " \n");
         }
         return position;
@@ -71,6 +76,16 @@ public class Game {
         return r.nextInt(6)+1;
     }
 
+    public void printDice (int number) {
+        switch (number) {
+            case 1 -> System.out.println(Image.get("Dice 1"));
+            case 2 -> System.out.println(Image.get("Dice 2"));
+            case 3 -> System.out.println(Image.get("Dice 3"));
+            case 4 -> System.out.println(Image.get("Dice 4"));
+            case 5 -> System.out.println(Image.get("Dice 5"));
+            case 6 -> System.out.println(Image.get("Dice 6"));
+        }
+    }
     public void isWin(){
         if(player2 == null){
             System.out.println("You win!");

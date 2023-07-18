@@ -1,7 +1,10 @@
 package fr.campus.DD.Menu;
 
 import java.util.Scanner;
+
+import fr.campus.DD.Character.Warrior;
 import fr.campus.DD.Game.Game;
+import fr.campus.DD.Utils.Image;
 
 public class Menu {
 
@@ -54,11 +57,13 @@ public class Menu {
             createCharacter();
         } else if (firstSelection.equals("continue")){
             System.out.println(newGame.getPlayer1() + " \n");
+            System.out.println(newGame.getPlayer1().getOffensiveEquipment() + " \n");
+            System.out.println(newGame.getPlayer1().getDeffensiveEquipment() + " \n");
             if (newGame.getPlayer2() != null){
                 System.out.println(newGame.getPlayer2() + " \n");
+                System.out.println(newGame.getPlayer2().getOffensiveEquipment() + " \n");
+                System.out.println(newGame.getPlayer2().getDeffensiveEquipment() + " \n");
             }
-
-            System.out.println("Welcome to Donjons & Dragons ! \n");
             newGame.startTheGame();
         } else {
             exitGame();
@@ -83,6 +88,8 @@ public class Menu {
     }
 
     public void showMainMenu () {
+
+        System.out.println(Image.get("welcome")+ " \n");
         Scanner console1 = new Scanner(System.in);
         System.out.println("Start a new game (start)");
         String start = console1.nextLine();

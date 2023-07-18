@@ -3,6 +3,7 @@ package fr.campus.DD.Character;
 import fr.campus.DD.Equipment.DeffensiveEquipment.Shield;
 import fr.campus.DD.Equipment.OffensiveEquipment.Weapon;
 import fr.campus.DD.Menu.Menu;
+import fr.campus.DD.Utils.Image;
 
 public class Warrior extends Character{
     Menu menu;

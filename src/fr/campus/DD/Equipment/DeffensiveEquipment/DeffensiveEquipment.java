@@ -1,6 +1,7 @@
 package fr.campus.DD.Equipment.DeffensiveEquipment;
 
 import fr.campus.DD.Character.Character;
+import fr.campus.DD.Utils.Image;
 
 public abstract class DeffensiveEquipment {
     private int defenceLevel;
@@ -32,9 +33,7 @@ public abstract class DeffensiveEquipment {
 
     @Override
     public String toString() {
-        return  "    Type: " + this.getClass().getSimpleName() + '\n' +
-                "    Name: " + name + '\n' +
-                "    Deffensive points: " + defenceLevel
-                ;
+        String template = Image.get(this.getClass().getSimpleName());
+        return  String.format(template, this.getName(), this.getDefenceLevel());
     }
 }

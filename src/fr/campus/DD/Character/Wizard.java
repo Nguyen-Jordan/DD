@@ -1,5 +1,6 @@
 package fr.campus.DD.Character;
 
+import fr.campus.DD.Equipment.DeffensiveEquipment.Potion;
 import fr.campus.DD.Equipment.DeffensiveEquipment.Shield;
 import fr.campus.DD.Equipment.OffensiveEquipment.Fate;
 import fr.campus.DD.Equipment.OffensiveEquipment.Weapon;
@@ -12,7 +13,7 @@ public class Wizard extends Character{
         this.menu = menu;
         this.setName(name);
         this.setOffensiveEquipment(new Fate("Tin Darkmoon Catalyst", 5));
-        this.setDeffensiveEquipment(new Shield("Small potion", 2));
+        this.setDeffensiveEquipment(new Potion("Small potion", 2));
 
         String levelGame = menu.getDifficulty();
 
