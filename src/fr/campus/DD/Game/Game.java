@@ -1,13 +1,19 @@
 package fr.campus.DD.Game;
 
+import fr.campus.DD.Case.Case;
+import fr.campus.DD.Case.EmptyCase;
+import fr.campus.DD.Case.EnemyCase;
+import fr.campus.DD.Case.ItemCase;
 import fr.campus.DD.Character.Character;
+import fr.campus.DD.Character.Enemies.Enemy;
 import fr.campus.DD.Character.Warrior;
 import fr.campus.DD.Character.Wizard;
-import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
-import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
+import fr.campus.DD.Equipment.Item;
+import fr.campus.DD.Exceptions.PersonnageHorsPlateauException;
 import fr.campus.DD.Menu.Menu;
 import fr.campus.DD.Utils.Image;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,7 +22,11 @@ public class Game {
     Menu menu ;
     private Character player1;
     private Character player2;
-    private final int[] board = new int[64];
+
+    final static Case EMPTY = new EmptyCase();
+    final static Case ENEMY = new EnemyCase();
+    final static Case CHEST = new ItemCase();
+    private ArrayList<Case> board = new ArrayList<>();
     private int positionP1 = 1;
 
     private int positionP2 = 1;
@@ -27,45 +37,53 @@ public class Game {
 
     public void mainMenu() {
         this.menu = new Menu(this);
-        menu.showMainMenu();
+        menu.showStartMenu();
     }
 
     // add position &&
     public void startTheGame(){
-        System.out.println(player1.getName() + " on box 1 " + "/ " + board.length);
+        Menu.slowPrint(player1.getName() + " on box 1 " + "/ " + board.size());
         if(player2 != null){
-            System.out.println(player2.getName() + " on box 1 " + "/ " + board.length);
+            Menu.slowPrint(player2.getName() + " on box 1 " + "/ " + board.size());
         }
-        while (positionP1 < board.length && positionP2 < board.length){
+        while (positionP1 < board.size() && positionP2 < board.size()){
             if (player2 == null){
-                positionP1 = movePosition(player1, positionP1);
-
+                tryToMove(player1, positionP1);
             } else {
                 new Scanner(System.in);  // Create a Scanner object
-                System.out.println(player1.getName()+ " is your turn to play ! \n");
-                positionP1 = movePosition(player1, positionP1);
-                System.out.println(player2.getName()+ " is your turn to play ! \n");
-                positionP2 = movePosition(player2, positionP2);
+                Menu.slowPrint(player1.getName() + " is your turn to play ! \n");
+                tryToMove(player1, positionP1);
+                System.out.println(player2.getName() + " is your turn to play ! \n");
+                tryToMove(player2, positionP2);
             }
         }
-
         isWin();
     }
 
-    public int movePosition (Character player, int position){
+    public void tryToMove (Character player, int position){
+        try {
+            position = movePosition(player, position);
+        } catch (PersonnageHorsPlateauException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public int movePosition (Character player, int position) throws PersonnageHorsPlateauException{
         int dice;
-        System.out.println(Image.get("Dice"));
+        Menu.delayedPrint(Image.get("Dice"));
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Roll the dice ! \n");
+        Menu.slowPrint("Roll the dice ! \n");
         String userName = myObj.nextLine();
         dice = rollDice();
         printDice(dice);
         position += dice;
+
         if (position < 64) {
-            System.out.println(player.getName() + " on box " + position + "/ " + board.length );
-        }
-        if (position >= 64) {
-            System.out.println(player.getName() + " on box " + 64 + " \n");
+            Menu.slowPrint(player.getName() + " on box " + position + "/ " + board.size() );
+        }else if (position == 64) {
+            Menu.slowPrint(player.getName() + " on box " + 64 + " \n");
+        }else {
+            throw new PersonnageHorsPlateauException();
         }
         return position;
     }
@@ -78,22 +96,22 @@ public class Game {
 
     public void printDice (int number) {
         switch (number) {
-            case 1 -> System.out.println(Image.get("Dice 1"));
-            case 2 -> System.out.println(Image.get("Dice 2"));
-            case 3 -> System.out.println(Image.get("Dice 3"));
-            case 4 -> System.out.println(Image.get("Dice 4"));
-            case 5 -> System.out.println(Image.get("Dice 5"));
-            case 6 -> System.out.println(Image.get("Dice 6"));
+            case 1 -> Menu.delayedPrint(Image.get("Dice 1"));
+            case 2 -> Menu.delayedPrint(Image.get("Dice 2"));
+            case 3 -> Menu.delayedPrint(Image.get("Dice 3"));
+            case 4 -> Menu.delayedPrint(Image.get("Dice 4"));
+            case 5 -> Menu.delayedPrint(Image.get("Dice 5"));
+            case 6 -> Menu.delayedPrint(Image.get("Dice 6"));
         }
     }
     public void isWin(){
         if(player2 == null){
-            System.out.println("You win!");
+            Menu.slowPrint("You win!");
         } else {
             if (positionP1 >= 64) {
-                System.out.println(player1.getName() + " win!");
+                Menu.slowPrint(player1.getName() + " win!");
             } else {
-                System.out.println(player2.getName() + " win!");
+                Menu.slowPrint(player2.getName() + " win!");
             }
         }
         menu.playAgain();

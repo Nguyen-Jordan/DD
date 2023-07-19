@@ -1,8 +1,8 @@
 package fr.campus.DD.Menu;
 
+import fr.campus.DD.Character.Character;
 import java.util.Scanner;
-
-import fr.campus.DD.Character.Warrior;
+import java.util.concurrent.TimeUnit;
 import fr.campus.DD.Game.Game;
 import fr.campus.DD.Utils.Image;
 
@@ -19,7 +19,7 @@ public class Menu {
 
     public void createCharacter(){
         Scanner myObj = new Scanner(System.in);
-        System.out.println("How many player? 1 or 2");
+        slowPrint("How many player? 1 or 2");
         int numberOfPlayer = myObj.nextInt();
 
         if (numberOfPlayer == 1){
@@ -37,32 +37,28 @@ public class Menu {
         Scanner console2 = new Scanner(System.in);
         String characterType = "";
         while (!characterType.equals("warrior") && !characterType.equals("wizard")) {
-            System.out.println("warrior or wizard? Enter your type:");
+            slowPrint("warrior or wizard? Enter your type:");
             characterType = console2.nextLine();
         }
         return characterType;
     }
     public String addName (){
         Scanner console1 = new Scanner(System.in);
-        System.out.println("Enter a name for your character:");
+        slowPrint("Enter a name for your character:");
         return console1.nextLine();
     }
     public void afterCreatingCharacter () {
         Scanner myObj = new Scanner(System.in);
         while (!firstSelection.equals("continue") && !firstSelection.equals("modify") && !firstSelection.equals("exit")){
-            System.out.println("Would you like to continue, modify or exit?");
+            slowPrint("Would you like to continue, modify or exit?");
             this.firstSelection = myObj.nextLine();
         }
         if (firstSelection.equals("modify")){
             createCharacter();
         } else if (firstSelection.equals("continue")){
-            System.out.println(newGame.getPlayer1() + " \n");
-            System.out.println(newGame.getPlayer1().getOffensiveEquipment() + " \n");
-            System.out.println(newGame.getPlayer1().getDeffensiveEquipment() + " \n");
+            printCharacter(newGame.getPlayer1());
             if (newGame.getPlayer2() != null){
-                System.out.println(newGame.getPlayer2() + " \n");
-                System.out.println(newGame.getPlayer2().getOffensiveEquipment() + " \n");
-                System.out.println(newGame.getPlayer2().getDeffensiveEquipment() + " \n");
+                printCharacter(newGame.getPlayer2());
             }
             newGame.startTheGame();
         } else {
@@ -70,10 +66,26 @@ public class Menu {
         }
     }
 
+    public void printCharacter (Character character) {
+        delayedPrint(character);
+        delayedPrint(character.getOffensiveEquipment());
+        delayedPrint(character.getDeffensiveEquipment());
+    }
+
+    public static void delayedPrint(Object message){
+        try {
+            System.out.println(message + " \n");
+
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void playAgain(){
 
         Scanner myObj = new Scanner(System.in);
-        System.out.println("\n Would you like to play again? yes or no");
+        slowPrint("\n Would you like to play again? yes or no");
         String userName = myObj.nextLine();
         if (userName.equals("yes")){
             newGame.mainMenu();
@@ -83,22 +95,45 @@ public class Menu {
     }
 
     public void exitGame () {
-        System.out.println("Game over !");
+        slowPrint("Game over !");
         return;
     }
 
-    public void showMainMenu () {
+    public void mainMenu(){
+
+        Scanner console1 = new Scanner(System.in);
+        int input = 0;
+        while (input != 1 && input != 2 && input !=3){
+            slowPrint("MENU \n\t1.continue.\n\t2.Show players status\n\t3.Exit");
+            input = console1.nextInt();
+        }
+        if(input == 3){
+            exitGame();
+        } else if (input == 2){
+            if (newGame.getPlayer2() == null){
+                printCharacter(newGame.getPlayer1());
+            } else {
+                printCharacter(newGame.getPlayer1());
+                printCharacter(newGame.getPlayer2());
+            }
+            mainMenu();
+        } else {
+            slowPrint("We are working on it");
+        }
+    }
+
+    public void showStartMenu() {
 
         System.out.println(Image.get("welcome")+ " \n");
         Scanner console1 = new Scanner(System.in);
-        System.out.println("Start a new game (start)");
+        slowPrint("Start a new game (start)");
         String start = console1.nextLine();
 
         if (start.equals("start")){
             Scanner console2 = new Scanner(System.in);
 
             while (!difficulty.equals("easy") && !difficulty.equals("medium") && !difficulty.equals("hard")){
-                System.out.println("Select you difficulty of the game: easy, medium or hard");
+                slowPrint("Select you difficulty of the game: easy, medium or hard");
                 this.difficulty = console2.nextLine();
             }
             createCharacter();
@@ -110,5 +145,18 @@ public class Menu {
 
     public String getDifficulty() {
         return difficulty;
+    }
+
+    public static void slowPrint(String output) {
+        for (int i = 0; i<output.length(); i++) {
+            char c = output.charAt(i);
+            System.out.println(c);
+            try {
+                TimeUnit.MILLISECONDS.sleep(45);
+            }
+            catch (Exception e) {
+
+            }
+        }
     }
 }

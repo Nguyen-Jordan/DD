@@ -1,19 +1,15 @@
 package fr.campus.DD.Equipment.OffensiveEquipment;
 
 import fr.campus.DD.Character.Character;
+import fr.campus.DD.Equipment.Item;
 import fr.campus.DD.Utils.Image;
 
-public abstract class OffensiveEquipment {
+public abstract class OffensiveEquipment extends Item {
     private int attackLevel;
-    private String name;
 
-    public OffensiveEquipment() {
-
-    }
-
-    public OffensiveEquipment(int newAttackLevel, String newName) {
-        this.attackLevel = newAttackLevel;
-        this.name = newName;
+    public OffensiveEquipment(String name, int durability, int level){
+        super(name, durability);
+        setAttackLevel(level);
     }
 
     public int getAttackLevel(){
@@ -22,14 +18,6 @@ public abstract class OffensiveEquipment {
 
     public void setAttackLevel(int attackLevel) {
         this.attackLevel = attackLevel;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String newName) {
-        this.name = newName;
     }
 
     @Override

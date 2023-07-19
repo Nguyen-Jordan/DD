@@ -1,18 +1,15 @@
 package fr.campus.DD.Equipment.DeffensiveEquipment;
 
 import fr.campus.DD.Character.Character;
+import fr.campus.DD.Equipment.Item;
 import fr.campus.DD.Utils.Image;
 
-public abstract class DeffensiveEquipment {
+public abstract class DeffensiveEquipment extends Item {
     private int defenceLevel;
-    private String name;
 
-    public DeffensiveEquipment(){
-
-    }
-    public DeffensiveEquipment(int newDefenceLevel, String newName){
-        this.defenceLevel = newDefenceLevel;
-        this.name = newName;
+    public DeffensiveEquipment(String name, int durability, int level){
+        super(name, durability);
+        setDefenceLevel(level);
     }
 
     public int getDefenceLevel() {
@@ -23,13 +20,6 @@ public abstract class DeffensiveEquipment {
         this.defenceLevel = defenceLevel;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public String toString() {
