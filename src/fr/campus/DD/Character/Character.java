@@ -2,19 +2,23 @@ package fr.campus.DD.Character;
 
 import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
 import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
+import fr.campus.DD.Equipment.PlayerEquipment.PlayerEquipment;
 import fr.campus.DD.Utils.Image;
 
 public abstract class Character {
     private String name;
     private int pointLife;
+    private int maxLife;
+
     private int forceAttack;
-    OffensiveEquipment offensiveEquipment;
-    DeffensiveEquipment deffensiveEquipment;
+    private OffensiveEquipment offensiveEquipment;
+    private DeffensiveEquipment deffensiveEquipment;
+
+    private PlayerEquipment backpack;
 
     public Character() {
-
+        this.backpack = new PlayerEquipment();
     }
-
 
     public Character(String name) {
 
@@ -61,6 +65,22 @@ public abstract class Character {
 
     public void setDeffensiveEquipment(DeffensiveEquipment deffensiveEquipment) {
         this.deffensiveEquipment = deffensiveEquipment;
+    }
+
+    public PlayerEquipment getBackpack() {
+        return backpack;
+    }
+
+    public int getMaxLife() {
+        return maxLife;
+    }
+
+    public void setMaxLife(int maxLife) {
+        this.maxLife = maxLife;
+    }
+
+    public void setBackpack(PlayerEquipment backpack) {
+        this.backpack = backpack;
     }
 
     @Override

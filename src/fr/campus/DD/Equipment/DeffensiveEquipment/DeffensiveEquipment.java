@@ -7,7 +7,7 @@ import fr.campus.DD.Utils.Image;
 public abstract class DeffensiveEquipment extends Item {
     private int defenceLevel;
 
-    public DeffensiveEquipment(String name, int durability, int level){
+    public DeffensiveEquipment(String name, int level, int durability){
         super(name, durability);
         setDefenceLevel(level);
     }
@@ -20,10 +20,13 @@ public abstract class DeffensiveEquipment extends Item {
         this.defenceLevel = defenceLevel;
     }
 
-
+    @Override
+    public String simpleString() {
+        return "\tName: " + this.getName() + "\n\tDefense: " + this.getDefenceLevel() + "\n\tDurability: " + this.getDurability()+ " rounds\n";
+    }
     @Override
     public String toString() {
         String template = Image.get(this.getClass().getSimpleName());
-        return  String.format(template, this.getName(), this.getDefenceLevel());
+        return  String.format(template, this.getName(), this.getDefenceLevel(), this.getDurability());
     }
 }

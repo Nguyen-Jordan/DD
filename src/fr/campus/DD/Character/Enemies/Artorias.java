@@ -7,26 +7,25 @@ import fr.campus.DD.Equipment.OffensiveEquipment.Weapon;
 
 import java.util.Random;
 
-public class Dragon extends Enemy{
+public class Artorias extends Enemy{
 
-    public Dragon (){
+    public Artorias (){
         super();
-        setName("Gaping Dragon");
-        setLifePoints(120);
-        setForceAttack(30);
+        setName("Artorias");
+        setLifePoints(220);
+        setForceAttack(35);
         randomItem();
     }
-
     public void randomItem () {
         Random rand = new Random();
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Dragon Greatsword", 12, 6));
-            setWizardItem(new Fate("Fire Surge", 14, 5));
+            setWarriorItem(new Weapon("Greatsword of Artorias", 15, 8));
+            setWizardItem(new Fate("Great Combustion", 16, 8));
         } else {
-            setWarriorItem(new Shield("Black Iron Greatshield", 9, 5));
-            setWizardItem(new Potion("High potion", 10, 5));
+            setWarriorItem(new Shield("Greatshield of Artorias", 12, 8));
+            setWizardItem(new Potion("Cure", 13, 8));
         }
     }
 }

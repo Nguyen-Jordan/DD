@@ -2,7 +2,6 @@ package fr.campus.DD.Equipment;
 
 public abstract class Item {
     private int durability;
-
     private String name;
 
     public Item (String name, int durability) {
@@ -25,5 +24,7 @@ public abstract class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    public abstract String simpleString ();
 
 }

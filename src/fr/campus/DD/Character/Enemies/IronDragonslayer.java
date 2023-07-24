@@ -7,13 +7,13 @@ import fr.campus.DD.Equipment.OffensiveEquipment.Weapon;
 
 import java.util.Random;
 
-public class Dragon extends Enemy{
+public class IronDragonslayer extends Enemy{
 
-    public Dragon (){
+    public IronDragonslayer () {
         super();
-        setName("Gaping Dragon");
-        setLifePoints(120);
-        setForceAttack(30);
+        setName("Iron Dragonslayer");
+        setLifePoints(450);
+        setForceAttack(40);
         randomItem();
     }
 
@@ -22,11 +22,11 @@ public class Dragon extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Dragon Greatsword", 12, 6));
-            setWizardItem(new Fate("Fire Surge", 14, 5));
+            setWarriorItem(new Weapon("Obsidian Greatsword", 20, 5));
+            setWizardItem(new Fate("Great Chaos Fireball", 20, 5));
         } else {
-            setWarriorItem(new Shield("Black Iron Greatshield", 9, 5));
-            setWizardItem(new Potion("High potion", 10, 5));
+            setWarriorItem(new Shield("Cleansing Greatshield", 15, 8));
+            setWizardItem(new Potion("Cure", 13, 8));
         }
     }
 }

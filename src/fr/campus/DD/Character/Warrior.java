@@ -11,19 +11,22 @@ public class Warrior extends Character{
         super();
         this.menu = menu;
         this.setName(name);
-        this.setOffensiveEquipment(new Weapon("Abyss Greatsword", 5));
-        this.setDeffensiveEquipment(new Shield("Small Leather Shield", 2));
+        this.setOffensiveEquipment(new Weapon("Abyss Greatsword", 5, 25));
+        this.setDeffensiveEquipment(new Shield("Small Leather Shield", 2,25));
         String levelGame = menu.getDifficulty();
 
         if (levelGame.equals("easy")) {
             this.setForceAttack(10);
-            this.setPointLife(10);
+            this.setPointLife(100);
+            this.setMaxLife(100);
         } else if (levelGame.equals("medium")) {
             this.setForceAttack(7);
-            this.setPointLife(7);
+            this.setPointLife(70);
+            this.setMaxLife(70);
         } else {
             this.setForceAttack(5);
-            this.setPointLife(5);
+            this.setPointLife(50);
+            this.setMaxLife(50);
         }
     }
 

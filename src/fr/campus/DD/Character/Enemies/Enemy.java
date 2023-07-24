@@ -1,18 +1,16 @@
 package fr.campus.DD.Character.Enemies;
 
 import fr.campus.DD.Equipment.Item;
+import fr.campus.DD.Utils.Image;
 
 public abstract class Enemy {
     private String name;
     private int lifePoints;
     private int  forceAttack;
-    Item item;
+    private Item wizardItem;
+    private Item warriorItem;
 
-    public Enemy (String name, int hp, int atk){
-        super();
-        setName(name);
-        setLifePoints(hp);
-        setForceAttack(atk);
+    public Enemy (){
     }
 
     public String getName() {
@@ -39,21 +37,23 @@ public abstract class Enemy {
         this.forceAttack = forceAttack;
     }
 
-    public Item getItem() {
-        return item;
+    public Item getWizardItem() {
+        return wizardItem;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setWizardItem(Item item) {
+        this.wizardItem = item;
     }
 
-    @Override
+    public Item getWarriorItem() {
+        return warriorItem;
+    }
+
+    public void setWarriorItem(Item item) {
+        this.warriorItem = item;
+    }
     public String toString() {
-        return "Enemy{" +
-                "name='" + name + '\'' +
-                ", lifePoints=" + lifePoints +
-                ", forceAttack=" + forceAttack +
-                ", item=" + item +
-                '}';
+        String template = Image.get(this.getClass().getSimpleName());
+        return String.format(template, this.getName(), this.getLifePoints(),this.getForceAttack());
     }
 }
