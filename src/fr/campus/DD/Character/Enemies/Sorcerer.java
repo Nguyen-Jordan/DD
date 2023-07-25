@@ -22,11 +22,11 @@ public class Sorcerer extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Claymore", 7, 4));
+            setWarriorItem(new Weapon("Claymore", 12, 4));
             setWizardItem(new Fate("Heavy Soul Arrow", 10, 4));
         } else {
-            setWarriorItem(new Shield("Crest Shield", 5, 6));
-            setWizardItem(new Potion("Big potion", 7, 5));
+            setWarriorItem(new Shield("Crest Shield", 12, 6));
+            setWizardItem(new Potion("Big potion", 10, 5));
         }
     }
 }

@@ -21,11 +21,11 @@ public class Knight extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Obsidian Greatsword", 10, 4));
+            setWarriorItem(new Weapon("Obsidian Greatsword", 15, 4));
             setWizardItem(new Fate("Black Flame", 12, 4));
         } else {
-            setWarriorItem(new Shield("Bloodshield", 7, 7));
-            setWizardItem(new Potion("Big potion", 7, 5));
+            setWarriorItem(new Shield("Bloodshield", 15, 7));
+            setWizardItem(new Potion("Big potion", 12, 5));
         }
     }
 }

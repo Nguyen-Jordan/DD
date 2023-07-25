@@ -22,10 +22,10 @@ public class Demon extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Gargoyle Tail Axe", 5, 5));
+            setWarriorItem(new Weapon("Gargoyle Tail Axe", 10, 5));
             setWizardItem(new Fate("Crystal Soul Spear", 8, 5));
         } else {
-            setWarriorItem(new Shield("Tower Kite Shield", 4, 5));
+            setWarriorItem(new Shield("Tower Kite Shield", 10, 5));
             setWizardItem(new Potion("Medium potion", 5, 5));
         }
     }

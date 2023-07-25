@@ -1,0 +1,12 @@
+fr.campus.DD.Case
+fr.campus.DD.Character
+fr.campus.DD.Character.Enemies
+fr.campus.DD.Equipment
+fr.campus.DD.Equipment.DeffensiveEquipment
+fr.campus.DD.Equipment.OffensiveEquipment
+fr.campus.DD.Equipment.PlayerEquipment
+fr.campus.DD.Exceptions
+fr.campus.DD.Game
+fr.campus.DD.Interface
+fr.campus.DD.Menu
+fr.campus.DD.Utils

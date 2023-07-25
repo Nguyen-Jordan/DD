@@ -22,11 +22,11 @@ public class Dragon extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Dragon Greatsword", 12, 6));
-            setWizardItem(new Fate("Fire Surge", 14, 5));
+            setWarriorItem(new Weapon("Dragon Greatsword", 18, 6));
+            setWizardItem(new Fate("Fire Surge", 16, 5));
         } else {
-            setWarriorItem(new Shield("Black Iron Greatshield", 9, 5));
-            setWizardItem(new Potion("High potion", 10, 5));
+            setWarriorItem(new Shield("Black Iron Greatshield", 18, 5));
+            setWizardItem(new Potion("High potion", 16, 5));
         }
     }
 }

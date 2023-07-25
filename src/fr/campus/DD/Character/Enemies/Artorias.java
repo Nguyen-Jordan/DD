@@ -21,11 +21,11 @@ public class Artorias extends Enemy{
         int randInt = rand.nextInt(2);
 
         if (randInt == 0){
-            setWarriorItem(new Weapon("Greatsword of Artorias", 15, 8));
-            setWizardItem(new Fate("Great Combustion", 16, 8));
+            setWarriorItem(new Weapon("Greatsword of Artorias", 25, 8));
+            setWizardItem(new Fate("Great Combustion", 20, 8));
         } else {
-            setWarriorItem(new Shield("Greatshield of Artorias", 12, 8));
-            setWizardItem(new Potion("Cure", 13, 8));
+            setWarriorItem(new Shield("Greatshield of Artorias", 25, 8));
+            setWizardItem(new Potion("Cure", 20, 8));
         }
     }
 }

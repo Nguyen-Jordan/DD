@@ -3,6 +3,7 @@ package fr.campus.DD.Game;
 import fr.campus.DD.Character.Enemies.Artorias;
 import fr.campus.DD.Character.Enemies.Enemy;
 import fr.campus.DD.Character.Enemies.IronDragonslayer;
+import fr.campus.DD.DB.Database;
 import fr.campus.DD.Equipment.DeffensiveEquipment.DeffensiveEquipment;
 import fr.campus.DD.Equipment.Item;
 import fr.campus.DD.Equipment.OffensiveEquipment.OffensiveEquipment;
@@ -17,12 +18,14 @@ import fr.campus.DD.Exceptions.PersonnageHorsPlateauException;
 import fr.campus.DD.Menu.Menu;
 import fr.campus.DD.Utils.Image;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 
+    Database database;
     Menu menu ;
     private Character player1;
     private Character player2;
@@ -36,8 +39,19 @@ public class Game {
     }
 
     public void mainMenu() {
-        this.menu = new Menu(this);
-        menu.showStartMenu();
+        this.database = new Database();
+        this.menu = new Menu(this, database);
+        try {
+            menu.showStartMenu();
+        } catch (Exception e){
+            System.out.println(e);
+        } finally {
+            try {
+                this.database.getConn().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     // add position &&
@@ -81,18 +95,19 @@ public class Game {
     public void fight (EnemyCase enemyCase, Character player){
         Enemy enemy = enemyCase.getEnemy();
         System.out.println(enemy);
-        while (enemy.getLifePoints() >= 0 && player.getPointLife() >= 0){
-            playerAttack(player, enemy);
+        menu.delayedPrint(player);
+        while (enemy.getLifePoints() > 0 && player.getPointLife() > 0){
             enemyAttack(player, enemy);
-        }
-        if (player.getPointLife() <= 0){
-            menu.dieMenu(player);
+            if (player.getPointLife() <= 0){
+                menu.dieMenu(player);
+            }
+            playerAttack(player, enemy);
         }
         int playerMaxLife = player.getMaxLife();
-        playerMaxLife ++;
+        playerMaxLife += 10;
         player.setMaxLife(playerMaxLife);
         int playerForce = player.getForceAttack();
-        playerForce ++;
+        playerForce += 10;
         player.setForceAttack(playerForce);
         if (player instanceof Warrior){
             loot(enemy.getWarriorItem(),player);
@@ -103,6 +118,7 @@ public class Game {
 
     public void enemyAttack (Character player, Enemy enemy) {
         Scanner myObj = new Scanner(System.in);
+        menu.delayedPrint(enemy);
         int action = 0;
         while (action != 1 && action != 2) {
             System.out.println("Enemy will attack. What would you do:\n\t1. Defend\n\t2. Galipette");
@@ -151,6 +167,7 @@ public class Game {
             int playerLife = player.getPointLife();
             playerLife -= enemyAttack;
             player.setPointLife(playerLife);
+            menu.slowPrint("You fail! You got " + enemyAttack + " points of damage.");
         } else {
             menu.slowPrint("You dodge the attack.");
         }
@@ -160,7 +177,7 @@ public class Game {
         Scanner myObj = new Scanner(System.in);
         int action = 0;
         if (player instanceof Warrior){
-            System.out.println(player);
+            menu.delayedPrint(player);
             while (action != 1 && action != 2) {
                 System.out.println("Player round:\n\t1. Attack\n\t2. Berserk attack (double damage)");
                 action = myObj.nextInt();
@@ -185,6 +202,12 @@ public class Game {
 
     }
 
+    /**
+     * Action on the function: this function manage the attack during the combat.
+     * @param player : Player is the character who is playing at the moment
+     * @param enemy : Enemy is the current enemy on the case
+     *
+     */
     public void attackAction(Character player, Enemy enemy) {
         int playerHit = player.getForceAttack() + player.getOffensiveEquipment().getAttackLevel();
         int enemyLife = enemy.getLifePoints();
@@ -207,11 +230,11 @@ public class Game {
         String throwDice = myObj.nextLine();
         dice = rollDice();
         printDice(dice);
-        if (dice < 5){
+        if (dice >= 5){
             int berserAttack = player.getForceAttack() * 2;
             int enemyLife = enemy.getLifePoints();
             enemyLife -= berserAttack;
-            player.setPointLife(enemyLife);
+            enemy.setLifePoints(enemyLife);
             menu.slowPrint("You are on berserk mode and you hit the enemy. The enemy got " + berserAttack + " points of attack");
         } else {
             menu.slowPrint("You fail the attack.");
@@ -234,12 +257,13 @@ public class Game {
 
     public void loot (Item item, Character player){
         System.out.println(item);
-        Item newItem = item;
         if (item instanceof DeffensiveEquipment ){
-            player.getBackpack().addDefensiveEquipment((DeffensiveEquipment) newItem);
+            player.getBackpack().addDefensiveEquipment((DeffensiveEquipment) item.clone());
         } else {
-            player.getBackpack().addOffensiveEquipment((OffensiveEquipment) newItem);
+            player.getBackpack().addOffensiveEquipment((OffensiveEquipment) item.clone());
         }
+        menu.slowPrint("Would you like to change your Equipment?");
+        menu.showBackpack(player);
     }
 
     public void rest (Character player){
@@ -261,11 +285,11 @@ public class Game {
             position = board.size();
         }
 
-        if (position < 64) {
+        if (position < board.size()) {
             Menu.slowPrint(player.getName() + " on box " + position + "/ " + board.size() );
         }else {
-            Menu.slowPrint(player.getName() + " on box " + 64 + " \n");
-            position = 64;
+            Menu.slowPrint(player.getName() + " on box " + board.size() + " \n");
+            position = board.size();
         }
         return position;
     }
@@ -322,7 +346,7 @@ public class Game {
         boolean notAgain = false;
         int nbEnemies = 6;
         int nbChest = 3;
-        for (int position = 0; position < 60; position++ ){
+        for (int position = 0; position < 30; position++ ){
             Random rand = new Random();
             int randInt = rand.nextInt(3);
             if (position % 12 == 0){
